@@ -1,0 +1,23 @@
+import trenes.*
+import Vagon.*
+import Locomotoras.*
+
+describe "test"{
+	
+	const vagon1= new VagonPasajeros()
+	const vagon2= new VagonPasajeros()
+	const vagonA= new VagonDeCargas()
+	const vagonB= new VagonDeCargas()
+	
+test "vagones livianos "{
+	vagon1.anchoUtil(3)
+	vagon2.anchoUtil(2)
+	vagon1.largoTotal(10)
+	vagon2.largoTotal(5)
+	assert.that(vagon1.esLivano())
+	assert.equals(8000,vagon1.pesoMaximo())
+	
+}
+		
+	
+}

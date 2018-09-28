@@ -1,6 +1,14 @@
-/** First Wollok example */
-object wollok {
-	method howAreYou() {
-		return 'I am Wolloktastic!'
+import Vagon.*
+
+class Formacion{
+	
+	var vagones = [] //de pasajeros y de carga
+	var locomotoras =[]
+	
+	method cuantosVagonesLivianos(){
+		return vagones.size({vagon=>vagon.esLiviano()})
 	}
+	
 }
+
+
