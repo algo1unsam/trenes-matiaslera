@@ -1,6 +1,7 @@
 import trenes.*
 import Vagon.*
 import Locomotoras.*
+import deposito.*
 
 describe "test"{
 	
@@ -8,16 +9,23 @@ describe "test"{
 	const vagon2= new VagonPasajeros()
 	const vagonA= new VagonDeCargas()
 	const vagonB= new VagonDeCargas()
+	const locomotoraRoja = new Locomotora()
+	const locomotoraAzul = new Locomotora()
+	const trenBelgrano = new Formacion()
 	
 test "vagones livianos "{
 	vagon1.anchoUtil(3)
 	vagon2.anchoUtil(2)
 	vagon1.largoTotal(10)
 	vagon2.largoTotal(5)
-	assert.that(vagon1.esLivano())
+	assert.notThat(vagon1.esLiviano())
 	assert.equals(8000,vagon1.pesoMaximo())
+}
+
+test "la velocidad de una Formacion es"{
+	locomotoraRoja.velocidadMaxima(60)
+	trenBelgrano.agregarLocomotora(locomotoraRoja)	
+	assert.equals(60, trenBelgrano.velocidadMaxima())
 	
 }
-		
-	
 }
