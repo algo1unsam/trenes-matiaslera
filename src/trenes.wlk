@@ -67,6 +67,64 @@ class Formacion{
 	method esCompleja(){
 		return self.formacionLarga() or self.esMuyPesada()
 	}
+	
+	method velocidadMaximaLegal()
+		
+	
+}
+
+class FormacionCortaDistancia inherits Formacion {
+
+	method estaBienArmada() {
+		return self.puedeMoverse() and not self.esCompleja()
+	}
+
+	method velocidadMAxima() = self.velocidadMaxima().min(60)
+
+//	override method velocidadMaxima() {
+//		return self.velocidadMaximaDeLocomotoras().min(self.velocidadMaximaLegal())
+//	}
+	override method velocidadMaximaLegal() = 60
+
+}
+
+class FormacionLargaDistancia inherits Formacion {
+
+	const origen = null
+	const destino = null
+
+	method estaBienArmada() {
+		return self.puedeMoverse() and not self.tieneSuficienteBanios()
+	}
+
+	method tieneSuficienteBanios() {
+		return self.cantidadDeBanios() >= vagones.cantidadDePasajeros() / 50
+	}
+
+	method cantidadDeBanios() {
+		return vagones.sum{ vagones => vagones.cantidadDeBanios() }
+	}
+
+	// override	method velocidadMaxima() {
+//		return self.velocidadMaximaDeLocomotoras().min(self.velocidadMaximaLegal())
+//	}
+	override method velocidadMaximaLegal() {
+		return if (origen.esGrande() and destino.esGrande()) 200 else 150
+	}
+
+}
+
+class FormacionAltaVelocidad inherits FormacionLargaDistancia{
+	
+	override method  estaBienArmada(){
+		return self.velocidadMaxima() > 250 and vagones.all({vagon=>vagon.esLiviano()})
+	}
+	
+}
+
+class Ciudad {
+	
+	const property esGrande = false
 }
 
 

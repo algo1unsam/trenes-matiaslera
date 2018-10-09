@@ -23,6 +23,9 @@ class VagonPasajeros{
 		return self.pesoMaximo() < 2500
 	}
 	
+	method cantidadDeBanios() {
+		if (self.cantidadDePasajeros() < 50) return 1 else return self.cantidadDePasajeros() / 50
+	}
 	//De cada vagón de pasajeros se conoce el largo en metros, y el ancho útil también en metros. La cantidad de pasajeros que puede transportar un vagón de pasajeros es:
 	 //- Si el ancho útil es de hasta 2.5 metros: metros de largo * 8. - Si el ancho útil es de más de 2.5 metros: metros de largo * 10.
 }
@@ -41,5 +44,9 @@ class VagonDeCargas{
 	
 	method esLiviano(){
 		return self.pesoMaximo()< 2500
+	}
+	
+	method cantidadDeBanios(){
+		return 0
 	}
 }
