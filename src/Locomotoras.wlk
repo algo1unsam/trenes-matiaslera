@@ -11,7 +11,7 @@ class Locomotora{
 	}
 	
 	method esEficiente(){
-		return 5 > (pesosMaximoArrastre/pesoLocomotora)
+		return pesosMaximoArrastre > pesoLocomotora * 5
 	}
 }
 

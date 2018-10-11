@@ -13,15 +13,17 @@ class Formacion{
 		vagones.add(locomotora)
 	}
 	method cuantosVagonesLivianos(){
-		return vagones.size({vagon=>vagon.esLiviano()})
+		return vagones.count({vagon=>vagon.esLiviano()})
+		//return vagones.count({ unVagon => unVagon.pesoMaximo() < 2500 
 	}
 	
-	method velocidadMaxima(){
+	method velocidadMaximaLocomotoras(){
 		return locomotoras.min({loco=>loco.velocidadMaxima()}).velocidadMaxima()
 	}//La velocidad máxima de una formación, que es el mínimo entre las velocidades máximas de las locomotoras.
 	
 	method esEficiente(){
 		return locomotoras.all({loco=>loco.esEficiente()})
+		//return locomotoras.all({ locomotora => locomotora.arrastreUtil() >= locomotora.pesoDeLocomotora() * 5 }
 	}
 	
 	method arrastreUtilTotal(){
@@ -57,20 +59,23 @@ class Formacion{
 		return locomotoras.size()
 	}
 	method formacionLarga(){
-		return 20 > self.cantidadDeVagones()+self.cantidadDeLocomotoras()
+		return  self.cantidadDeVagones()+self.cantidadDeLocomotoras()>20
 	}
 	
 	method esMuyPesada(){
-		return 10000> self.pesosTotalVagones()+self.pesoTotalLocomotoras()
+		return self.pesosTotalVagones()+self.pesoTotalLocomotoras() > 10000
 	}
 	
 	method esCompleja(){
 		return self.formacionLarga() or self.esMuyPesada()
 	}
 	
+	method velocidadMaxima(){
+		return self.velocidadMaximaLocomotoras().min(self.velocidadMaximaLegal())
+	}
 	method velocidadMaximaLegal()
 		
-	
+	//PLUS TOTALIDAD DE CANTIDAD DE PASAJEROS, SI TODXS SON VAGONES DE CARGA,CANTIDAD DE PASAJERO 0
 }
 
 class FormacionCortaDistancia inherits Formacion {
@@ -117,7 +122,7 @@ class FormacionLargaDistancia inherits Formacion {
 class FormacionAltaVelocidad inherits FormacionLargaDistancia{
 	
 	override method  estaBienArmada(){
-		return self.velocidadMaxima() > 250 and vagones.all({vagon=>vagon.esLiviano()})
+		return self.velocidadMaxima() > 250 and  self.velocidadMaxima()<400 and vagones.all({vagon=>vagon.esLiviano()})
 	}
 	
 }

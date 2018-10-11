@@ -5,27 +5,63 @@ import deposito.*
 
 describe "test"{
 	
-	const vagon1= new VagonPasajeros()
-	const vagon2= new VagonPasajeros()
+	const vagon1= new VagonPasajeros(anchoUtil=3,largoTotal=5)
+	const vagon2= new VagonPasajeros(anchoUtil=2,largoTotal=3)
 	const vagonA= new VagonDeCargas()
 	const vagonB= new VagonDeCargas()
-	const locomotoraRoja = new Locomotora()
-	const locomotoraAzul = new Locomotora()
-	//const trenBelgrano = new Formacion(vagones=[])
+	const lRoja = new Locomotora(velocidadMaxima=100)
+	const lAzul = new Locomotora(
+		pesoLocomotora=10,
+		pesosMaximoArrastre = 140
+	)
+	const lNegra = new Locomotora(
+		pesoLocomotora=100, pesosMaximoArrastre = 14000
+	)
+	const trenBelgrano = new FormacionCortaDistancia(
+		vagones=[vagon1,vagon2],
+		locomotoras=[lNegra,lAzul]
+	)
+	const trenDelCielo = new FormacionLargaDistancia(
+		vagones=[vagon1],
+		locomotoras=[lRoja]
+	)
+	const dBelgrano = new Deposito(
+		locomotorasSueltas=[],
+		formaciones=[trenBelgrano,trenDelCielo]		
+	)
 	
-test "vagones livianos "{
-	vagon1.anchoUtil(3)
-	vagon2.anchoUtil(2)
-	vagon1.largoTotal(10)
-	vagon2.largoTotal(5)
-	assert.notThat(vagon1.esLiviano())
-	assert.equals(8000,vagon1.pesoMaximo())
+test "El tren Belgrano tiene 0 vagones livianos"{
+
+	assert.equals(1,trenBelgrano.cuantosVagonesLivianos())
 }
 
-test "la velocidad de una Formacion es"{
-	locomotoraRoja.velocidadMaxima(60)
-	//trenBelgrano.agregarLocomotora(locomotoraRoja)	
-	//assert.equals(60, trenBelgrano.velocidadMaxima())
+test " El vagon 1 no es liviano, el vagon menos ancho"{
+	assert.notThat(vagon1.esLiviano())
+	
+}
+
+test "la velocidad maxima del Tren del Cielo es 60"{
+	assert.equals(60, trenBelgrano.velocidadMaxima())
+}
+
+test "El tren Belgrano es eficiente"{
+	assert.that(trenBelgrano.esEficiente())
+}
+test "El tren Belgrano puede moverse"{
+	assert.that (trenBelgrano.puedeMoverse())
+}
+
+test "El trenDelCielo le falta para moverse  0 kg"{
+	assert.equals(0,trenDelCielo.cuantoEmpujeLeFalta())
+}
+test "El deposito tiene estas formacion de vagones pesados"{
+	assert.equals([vagon1,vagon1],dBelgrano.vagonesPesados())
+}
+test "El deposito Belgrano necesita un conductor experimentado"{
+	assert.notThat(dBelgrano.necesitaUnConductorExperimentado())
+}
+test "El tren Belgrano puede moverse. Agregar locomotora al deposito"{
+		assert.that (trenBelgrano.puedeMoverse())
 	
 }
 }

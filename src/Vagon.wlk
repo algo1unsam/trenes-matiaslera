@@ -4,8 +4,8 @@ import trenes.*
 class VagonPasajeros{
 	
 	var property largoTotal // lo estoy usando
-	var property anchoTotal
-	var property largoUtil
+//	var property anchoTotal
+//	var property largoUtil
 	var property anchoUtil //lo estoy usando
 
 	method cantidadDePasajeros(){

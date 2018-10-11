@@ -13,11 +13,11 @@ class Deposito {
 	
 	method agregarLocomotoraAFormacion(formacion) {
 		if (!formacion.puedeMoverse()) {
-			formacion.add(self.buscarLocomotoraSueltaApta(formacion))
+			formacion.add(self.buscarLocomotoraSueltas(formacion))
 		}
 	}
 
-	method buscarLocomotoraSueltaApta(formacion) {
+	method buscarLocomotoraSueltas(formacion) {
 		return locomotorasSueltas.find{ locomotora => locomotora.arrastreUtil() >= formacion.empuje() }
 	}
 	
